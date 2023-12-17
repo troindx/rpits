@@ -1,0 +1,5 @@
+.env
+.terraform
+.vscode
+dist
+node_modules
