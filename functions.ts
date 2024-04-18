@@ -60,6 +60,51 @@ export async function getHamroDNS (){
   return dnsResponse;
 } 
 
+export async function getRecordValue(recordId:string) {
+  const zone = process.env.ZONE;
+  const ionosApiEndpoint = `https://api.hosting.ionos.com/dns/v1/zones/${zone}/records/${recordId}`;
+  
+  const headers = {
+    'accept': 'application/json',
+    'X-API-Key': ionosApiKey,
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const response = await axios.get(ionosApiEndpoint, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('HTTP Error:', error);
+    throw error;
+  }
+}
+
+export async function challenge(new_value:string){
+  const zone = process.env.ZONE;
+  const recordId= process.env.ACME_CHALLENGE_ID
+  const ionosApiEndpoint = `https://api.hosting.ionos.com/dns/v1/zones/${zone}/records/${recordId}`;
+  
+  const headers = {
+    'accept': 'application/json',
+    'X-API-Key': ionosApiKey,
+    'Content-Type': 'application/json',
+  };
+
+  const data = {
+    'disabled': false,
+    'content': new_value,
+    'ttl': 3600,
+    'prio': 0,
+  };
+  try {
+    const response = await axios.put(ionosApiEndpoint, JSON.stringify(data), { headers });
+    return response.data;
+  } catch (error:any) {
+    console.error('Error:', error.message, "\nCode:", error.code, "\nHeaders:", error.config.headers, "\nUrl", error.config.url, "\nData", error.config.data);
+    throw error;
+  }
+}
+
 export async function updateDNSRecords() :Promise< {
     stdout: string;
     stderr: string;
