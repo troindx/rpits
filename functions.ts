@@ -117,7 +117,6 @@ export async function updateDNSRecords() :Promise< {
     const publicIP = await getHamroPublicIp();
     records.push(await updateDNSRecord(process.env.ZONE as string, process.env.HAMRODEV_ID as string, publicIP));
     records.push(await updateDNSRecord(process.env.ZONE as string, process.env.WWW_HAMRODEV_ID as string, publicIP));
-    records.push(await updateDNSRecord(process.env.ZONE as string, process.env.MAIL_HAMRODEV_ID as string, publicIP));
   } catch (error) {
     console.error('Error:', error);
   }
@@ -145,7 +144,6 @@ export async function checkDNSRecords():Promise<{
     } else {
       records.push(await updateDNSRecord(process.env.ZONE as string, process.env.HAMRODEV_ID as string, publicIP));
       records.push(await updateDNSRecord(process.env.ZONE as string, process.env.WWW_HAMRODEV_ID as string, publicIP));
-      records.push(await updateDNSRecord(process.env.ZONE as string, process.env.MAIL_HAMRODEV_ID as string, publicIP));
     }
   } catch (error) {
     // Handle errors
