@@ -140,7 +140,7 @@ export async function checkDNSRecords():Promise<{
 
     // Compare the public IP with the IP of hamrodev.com
     if (publicIP === dnsIP) {
-      console.log('Public IP and hamrodev.com IP match!');
+      console.log('Public IP and hamrodev.com IP match!: ', publicIP);
     } else {
       records.push(await updateDNSRecord(process.env.ZONE as string, process.env.HAMRODEV_ID as string, publicIP));
       records.push(await updateDNSRecord(process.env.ZONE as string, process.env.WWW_HAMRODEV_ID as string, publicIP));
@@ -149,5 +149,6 @@ export async function checkDNSRecords():Promise<{
     // Handle errors
     console.error('Error:', error);
   }
+  
   return records;
 }
