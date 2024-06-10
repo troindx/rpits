@@ -1,5 +1,9 @@
-import { challenge, getHamroDNS, getHamroPublicIp, getRecordValue, updateDNSRecords } from "./functions";
+import { getHamroDNS, getHamroPublicIp, updateDNSRecords, ionosApiKey } from "./functions";
 
+test('ionos API key is set', () => {
+    expect (typeof ionosApiKey).toBe('string');
+    expect (ionosApiKey.length).toBe(119);
+})
 test('getHamroPublicIp -> Gets an IP', async () => {
     const ip = await getHamroPublicIp();
     expect(typeof ip).toBe('string');
@@ -14,16 +18,4 @@ test('Updates DNS', async () => {
     const resp = updateDNSRecords();
     expect((await resp).length).toBe(2);
     
-},50000);
-
-test('challenge -> updates the record', async () => {
-    const pre = (await getRecordValue(process.env.ACME_CHALLENGE_ID || ""))
-    console.log(pre)
-    expect(typeof pre.content).toBe('string');
-    const result = (await challenge('ns.someValue.com'));
-    console.log(result);
-    expect(result.content).toBe( "\"ns.someValue.com\"");
-    const leave_as_it_was = (await challenge(pre.content));
-    console.log(leave_as_it_was);
-    expect(leave_as_it_was.content).toBe(pre.content);
 },50000);

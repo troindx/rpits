@@ -9,7 +9,7 @@ const ipApiUrl = 'http://httpbin.org/ip';
 
 // Define the domain for hamrodev.com
 const hamrodevDomain = 'hamrodev.com';
-const ionosApiKey = `${process.env.PUBLIC_PREFIX}.${process.env.SECRET}` || "";
+export const ionosApiKey = `${process.env.PUBLIC_PREFIX}.${process.env.SECRET}`.trim() || "";
 
 /**
  * Updates HamroDev DNS Using curlCommand
@@ -75,32 +75,6 @@ export async function getRecordValue(recordId:string) {
     return response.data;
   } catch (error) {
     console.error('HTTP Error:', error);
-    throw error;
-  }
-}
-
-export async function challenge(new_value:string){
-  const zone = process.env.ZONE;
-  const recordId= process.env.ACME_CHALLENGE_ID
-  const ionosApiEndpoint = `https://api.hosting.ionos.com/dns/v1/zones/${zone}/records/${recordId}`;
-  
-  const headers = {
-    'accept': 'application/json',
-    'X-API-Key': ionosApiKey,
-    'Content-Type': 'application/json',
-  };
-
-  const data = {
-    'disabled': false,
-    'content': new_value,
-    'ttl': 3600,
-    'prio': 0,
-  };
-  try {
-    const response = await axios.put(ionosApiEndpoint, JSON.stringify(data), { headers });
-    return response.data;
-  } catch (error:any) {
-    console.error('Error:', error.message, "\nCode:", error.code, "\nHeaders:", error.config.headers, "\nUrl", error.config.url, "\nData", error.config.data);
     throw error;
   }
 }
