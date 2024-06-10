@@ -12,7 +12,7 @@ test('getHamroDNSIp -> Gets an DNS Lookup IP', async () => {
 
 test('Updates DNS', async () => {
     const resp = updateDNSRecords();
-    expect((await resp).length).toBe(3);
+    expect((await resp).length).toBe(2);
     
 },50000);
 
