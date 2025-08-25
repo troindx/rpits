@@ -1,3 +1,3 @@
-import { checkDNSRecords } from "./functions";
+import { run } from "./functions";
 
-checkDNSRecords();
+run();
