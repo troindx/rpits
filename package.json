@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "build": "npx tsc index.ts",
-    "start": "ts-node index.ts"
+    "build": "npx tsc src/index.ts",
+    "start": "ts-node src/index.ts"
   },
   "keywords": [
     "rpi",
