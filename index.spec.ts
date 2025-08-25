@@ -24,6 +24,7 @@ test('getHamroDNSIp -> Gets an DNS Lookup IP', async () => {
 
 test('Checks DNS records', async () => {
     const resp = await  checkDNSRecords();
+    if (!resp) throw Error("No response from checkDNSRecords")
     expect(resp).toBeTruthy();
     expect(typeof resp.dnsIP).toBe("string");
     expect(typeof resp.publicIP).toBe("string");

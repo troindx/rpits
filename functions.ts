@@ -97,6 +97,7 @@ export async function getRecordValue(recordId:string) {
  */
 export async function run(){
  const resp = await checkDNSRecords();
+ if (!resp) { console.error("Failed to check and update DNSRecords."); return;}
  const notified = notifyIPtoTelegram(resp);
  if (!notified) console.error("Could not send notification to Telegram Bot");
 }
